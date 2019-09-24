@@ -5,6 +5,7 @@ RSpec.describe Admin, type: :model do
 
   subject { @admin }
 
+  it { should respond_to(:auth_token) }
   it { should respond_to(:email) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
@@ -13,12 +14,6 @@ RSpec.describe Admin, type: :model do
   describe "when email is not present" do
     before { @admin.email = " " }
     it { expect(@admin).to_not be_valid }
-  end
-
-  describe "when email is duplicated" do
-    first = Admin.new(email: 'adm@adm.com')
-    duplicated = Admin.new(email: 'adm@adm.com')
-    it { expect(duplicated).to_not be_valid }
   end
 
   describe "when password is short" do
