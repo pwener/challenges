@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe AdminsController, type: :controller do
+
+  def object_response(body)
+    JSON.parse(body, symbolize_names: true)
+  end
+
   describe "GET #show" do
     before(:each) do
       @admin = FactoryBot.create :admin
@@ -8,7 +13,7 @@ RSpec.describe AdminsController, type: :controller do
     end
 
     it "returns the information about admin" do
-      admin_response = JSON.parse(response.body, symbolize_names: true)
+      admin_response = object_response(response.body)
       expect(admin_response[:email]).to eql @admin.email
     end
 
@@ -25,7 +30,7 @@ RSpec.describe AdminsController, type: :controller do
       end
 
       it "renders the json of admin" do
-        admin_response = JSON.parse(response.body, symbolize_names: true)
+        admin_response = object_response(response.body)
         expect(admin_response[:email]).to eql @admin_attr[:email]
       end
 
@@ -40,7 +45,7 @@ RSpec.describe AdminsController, type: :controller do
       end
 
       it "render json errors" do
-        admin_response = JSON.parse(response.body, symbolize_names: true)
+        admin_response = object_response(response.body)
         expect(admin_response[:errors][:email]).to include "can't be blank"
       end
 
@@ -58,7 +63,7 @@ RSpec.describe AdminsController, type: :controller do
       end
 
       it "renders the json of updated admin" do
-        admin_response = JSON.parse(response.body, symbolize_names: true)
+        admin_response = object_response(response.body)
         expect(admin_response[:login]).to eql 'xpto'
       end
 
@@ -73,7 +78,7 @@ RSpec.describe AdminsController, type: :controller do
       end
 
       it "renders the update errors" do
-        admin_response = JSON.parse(response.body, symbolize_names: true)
+        admin_response = object_response(response.body)
         expect(admin_response).to have_key(:errors)
       end
 
