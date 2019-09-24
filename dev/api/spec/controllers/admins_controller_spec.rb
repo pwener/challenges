@@ -48,4 +48,38 @@ RSpec.describe AdminsController, type: :controller do
     end
   end
 
+  describe "PUT #update" do
+
+    context "when admin is successfully updated" do
+      before(:each) do
+        @admin = FactoryBot.create :admin
+        params = { id: @admin.id, admin: { login: 'xpto' } }
+        patch :update, params: params, format: :json
+      end
+
+      it "renders the json of updated admin" do
+        admin_response = JSON.parse(response.body, symbolize_names: true)
+        expect(admin_response[:login]).to eql 'xpto'
+      end
+
+      it { expect(response).to have_http_status(200) }
+    end
+
+    context "when admin is not updated" do
+      before(:each) do
+        @admin = FactoryBot.create :admin
+        params = { id: @admin.id, admin: { login: '' } }
+        patch :update, params: params, format: :json
+      end
+
+      it "renders the update errors" do
+        admin_response = JSON.parse(response.body, symbolize_names: true)
+        expect(admin_response).to have_key(:errors)
+      end
+
+      it { expect(response).to have_http_status(422) }
+    end
+
+  end
+
 end
