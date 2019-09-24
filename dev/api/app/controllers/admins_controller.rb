@@ -16,13 +16,19 @@ class AdminsController < ApplicationController
     end
   end
 
-  # PUT /admins
+  # PUT /admins/:id
   def update
     if @admin.update(admin_params)
       render json: @admin, status: :ok
     else
       render json: { errors: @admin.errors }, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /admins/:id
+  def destroy
+    @admin.destroy
+    head :ok
   end
 
   private
