@@ -40,8 +40,8 @@ RSpec.describe AdminsController, type: :controller do
       end
 
       it "render json errors" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
-        expect(user_response[:errors][:email]).to include "can't be blank"
+        admin_response = JSON.parse(response.body, symbolize_names: true)
+        expect(admin_response[:errors][:email]).to include "can't be blank"
       end
 
       it { expect(response).to have_http_status(422)}

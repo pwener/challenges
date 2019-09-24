@@ -15,6 +15,16 @@ class AdminsController < ApplicationController
     end
   end
 
+  # PUT /admins
+  def update
+    admin = Admin.find(params[:id])
+    if admin.update(admin_params)
+      render json: admin, status: :ok
+    else
+      render json: { errors: admin.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def admin_params
