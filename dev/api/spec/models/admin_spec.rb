@@ -12,22 +12,22 @@ RSpec.describe Admin, type: :model do
 
   describe "when email is not present" do
     before { @admin.email = " " }
-    it { should_not be_valid }
+    it { expect(@admin).to_not be_valid }
   end
 
   describe "when email is duplicated" do
     first = Admin.new(email: 'adm@adm.com')
     duplicated = Admin.new(email: 'adm@adm.com')
-    it { duplicated.should_not be_valid }
+    it { expect(duplicated).to_not be_valid }
   end
 
   describe "when password is short" do
     before { @admin.password = "adm" }
-    it { should_not be_valid }
+    it { expect(@admin).to_not be_valid }
   end
 
   describe "when login is invalid" do
     before { @admin.login = " " }
-    it { should_not be_valid }
+    it { expect(@admin).to_not be_valid}
   end
 end
