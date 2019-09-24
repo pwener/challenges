@@ -21,12 +21,12 @@ RSpec.describe AdminsController, type: :controller do
 
       before(:each) do
         @admin_attr = FactoryBot.attributes_for :admin
-        post :create, { admin: @admin_attr }, format: :json
+        post :create, params: { admin: @admin_attr }, format: :json
       end
 
       it "renders the json of admin" do
         admin_response = JSON.parse(response.body, symbolize_names: true)
-        expect(admin_response[:email]).to eql @user_attributes[:email]
+        expect(admin_response[:email]).to eql @admin_attr[:email]
       end
 
       it { expect(response).to have_http_status(201) }
@@ -36,7 +36,7 @@ RSpec.describe AdminsController, type: :controller do
     context "when is not created" do
       before(:each) do
         @invalid_admin_attrs = { login: '12344', password: 'adm123456' }
-        post :create, { admin: @invalid_admin_attrs }, format: :json
+        post :create, params: { admin: @invalid_admin_attrs }, format: :json
       end
 
       it "render json errors" do
