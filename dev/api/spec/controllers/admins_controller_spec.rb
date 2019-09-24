@@ -87,4 +87,13 @@ RSpec.describe AdminsController, type: :controller do
 
   end
 
+  describe "DELETE #destroy" do
+    before(:each) do
+      @admin = FactoryBot.create :admin
+      delete :destroy, params: { id: @admin.id }, format: :json
+    end
+
+    it { expect(response).to have_http_status(:ok) }
+  end
+
 end
