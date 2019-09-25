@@ -4,6 +4,7 @@
 class SessionsController < ApplicationController
   before_action :find_by_email, only: [:create]
 
+  # POST /sessions
   def create
     password = params[:session][:password]
     if @admin.valid_password? password
@@ -15,6 +16,14 @@ class SessionsController < ApplicationController
       message = 'Invalid email or password'
       render json: { errors: message }, status: :unauthorized
     end
+  end
+
+  # DELETE /sessions
+  def destroy
+    admin = Admin.find_by(auth_token: params[:id])
+    admin.generate_authentication_token!
+    admin.save
+    head :ok
   end
 
   private

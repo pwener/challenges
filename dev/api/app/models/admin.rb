@@ -8,8 +8,8 @@ class Admin < ApplicationRecord
   validates :login, presence: true, length: { in: 2..25 }
 
   def generate_authentication_token!
-    while self.class.exists?(auth_token: auth_token)
+    begin
       self.auth_token = Devise.friendly_token
-    end
+    end while self.class.exists?(auth_token: auth_token)
   end
 end

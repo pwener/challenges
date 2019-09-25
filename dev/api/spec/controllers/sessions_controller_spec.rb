@@ -34,4 +34,14 @@ RSpec.describe SessionsController, type: :controller do
     end
 
   end
+
+  describe 'DELETE #destroy' do
+    before(:each) do
+      admin = FactoryBot.create :admin
+      sign_in admin
+      delete :destroy, params: { id: admin.auth_token }
+    end
+
+    it { expect(response).to have_http_status(:ok) }
+  end
 end
