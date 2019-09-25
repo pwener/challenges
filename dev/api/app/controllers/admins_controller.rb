@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :authenticate_with_token!, only: [:update, :destroy]
+  before_action :authorize!
 
   # GET /admins/:id
   def show

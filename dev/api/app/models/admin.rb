@@ -5,7 +5,7 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates :auth_token, uniqueness: true
-  validates :login, presence: true, length: { in: 2..25 }
+  validates :login, uniqueness: true, presence: true, length: { in: 2..25 }
 
   def generate_authentication_token!
     begin

@@ -4,6 +4,7 @@ RSpec.describe AdminsController, type: :controller do
   describe "GET #show" do
     before(:each) do
       @admin = FactoryBot.create :admin
+      api_authorization_header @admin.auth_token
       get :show, params: { id: @admin.id }, format: :json
     end
 
@@ -19,7 +20,9 @@ RSpec.describe AdminsController, type: :controller do
     context "when is successfully created" do
 
       before(:each) do
+        logged = FactoryBot.create :admin
         @admin_attr = FactoryBot.attributes_for :admin
+        api_authorization_header logged.auth_token
         post :create, params: { admin: @admin_attr }, format: :json
       end
 
@@ -33,7 +36,9 @@ RSpec.describe AdminsController, type: :controller do
 
     context "when is not created" do
       before(:each) do
+        logged = FactoryBot.create :admin
         @invalid_admin_attrs = { login: '12344', password: 'adm123456' }
+        api_authorization_header logged.auth_token
         post :create, params: { admin: @invalid_admin_attrs }, format: :json
       end
 
