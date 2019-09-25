@@ -4,7 +4,7 @@ class AdminsController < ApplicationController
   # GET /admins/:id
   def show
     admin = Admin.find(params[:id])
-    render json: admin, status: :ok
+    render json: admin, except: :auth_token, status: :ok
   end
 
   # POST /admins
