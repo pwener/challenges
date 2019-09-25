@@ -51,6 +51,7 @@ RSpec.describe AdminsController, type: :controller do
       before(:each) do
         @admin = FactoryBot.create :admin
         params = { id: @admin.id, admin: { login: 'xpto' } }
+        api_authorization_header @admin.auth_token
         patch :update, params: params, format: :json
       end
 
@@ -65,6 +66,7 @@ RSpec.describe AdminsController, type: :controller do
       before(:each) do
         @admin = FactoryBot.create :admin
         params = { id: @admin.id, admin: { login: '' } }
+        api_authorization_header @admin.auth_token
         patch :update, params: params, format: :json
       end
 
@@ -80,7 +82,10 @@ RSpec.describe AdminsController, type: :controller do
   describe "DELETE #destroy" do
     before(:each) do
       @admin = FactoryBot.create :admin
-      delete :destroy, params: { id: @admin.id }, format: :json
+      api_authorization_header @admin.auth_token
+      delete :destroy,
+              params: { id: @admin.auth_token },
+              format: :json
     end
 
     it { expect(response).to have_http_status(:ok) }

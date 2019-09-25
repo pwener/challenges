@@ -1,9 +1,10 @@
 class AdminsController < ApplicationController
-  before_action :find_by_id, except: [:create]
+  before_action :authenticate_with_token!, only: [:update, :destroy]
 
   # GET /admins/:id
   def show
-    render json: @admin, status: :ok
+    admin = Admin.find(params[:id])
+    render json: admin, status: :ok
   end
 
   # POST /admins
@@ -18,16 +19,16 @@ class AdminsController < ApplicationController
 
   # PUT /admins/:id
   def update
-    if @admin.update(admin_params)
-      render json: @admin, status: :ok
+    if current_user.update(admin_params)
+      render json: current_user, status: :ok
     else
-      render json: { errors: @admin.errors }, status: :unprocessable_entity
+      render json: { errors: current_user.errors }, status: :unprocessable_entity
     end
   end
 
   # DELETE /admins/:id
   def destroy
-    @admin.destroy
+    current_user.destroy
     head :ok
   end
 
@@ -35,9 +36,5 @@ class AdminsController < ApplicationController
 
   def admin_params
     params.require(:admin).permit(:email, :login, :password, :password_confirmation)
-  end
-
-  def find_by_id
-    @admin = Admin.find(params[:id])
   end
 end

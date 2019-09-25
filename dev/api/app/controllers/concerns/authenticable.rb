@@ -4,6 +4,8 @@ module Authenticable
     @current_user ||= Admin.find_by(auth_token: request.headers['Authorization'])
   end
 
-  # just to test purposes
-  def request; end
+  def authenticate_with_token!
+    render json: { errors: 'Not authenticated...' },
+           status: :unauthorized unless current_user.present?
+  end
 end

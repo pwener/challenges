@@ -2,6 +2,8 @@ require 'rails_helper'
 
 class Authentication
   include Authenticable
+
+  def request; end
 end
 
 describe Authenticable, type: :controller do
@@ -11,7 +13,7 @@ describe Authenticable, type: :controller do
   describe 'current user', type: :request do
     before do
       @admin = FactoryBot.create :admin
-      request.headers['Authorization'] = @admin.auth_token
+      api_authorization_header @admin.auth_token
       authentication.stub(:request).and_return(request)
     end
 
