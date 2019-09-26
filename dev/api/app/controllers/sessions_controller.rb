@@ -30,7 +30,17 @@ class SessionsController < ApplicationController
 
   def find_by_email
     email = params[:session][:email]
-    puts email
-    @admin = Admin.find_by(email: email) if email.present?
+    if valid_params?
+      @admin = Admin.find_by(email: email)
+    else
+      render json: { errors: 'You need pass your credentials' },
+             status: :unauthorized
+    end
+  end
+
+  def valid_params?
+    email = params[:session][:email]
+    password = params[:session][:password]
+    email.present? || password.present?
   end
 end
