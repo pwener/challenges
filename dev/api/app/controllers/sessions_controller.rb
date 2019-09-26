@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   # POST /sessions
   def create
     password = params[:session][:password]
-    if @admin.valid_password? password
+    if @admin && @admin.valid_password?(password)
       sign_in @admin, store: false
       @admin.generate_authentication_token!
       @admin.save
