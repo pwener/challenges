@@ -1,10 +1,41 @@
 import React from 'react';
 import LoginForm from './components/LoginForm';
+import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Message } from 'semantic-ui-react';
+import { Router } from 'react-router-dom';
+import { history } from './helpers/history';
+import { alertActions } from './actions/alertActions';
 
-function App() {
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        localStorage.getItem('user')
+            ? <Component {...props} />
+            : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+    )} />
+)
+
+const App = (props) => {
+  const { alert } = props;
+
   return (
-    <LoginForm />
+    <>
+      {alert ? <Message color={alert.color}>{alert.message}</Message> : null }
+      <Router history={history}>
+        <LoginForm />
+      </Router>
+    </>
   );
 }
 
-export default App;
+const mapState = (state) => {
+  const { alert } = state;
+  return { alert };
+}
+
+const actionCreators = {
+  clearAlerts: alertActions.clear
+};
+
+
+export default connect(mapState, actionCreators)(App);;
