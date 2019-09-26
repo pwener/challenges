@@ -8,6 +8,7 @@ import { Message, Container } from 'semantic-ui-react';
 import history from './helpers/history';
 import alertActions from './actions/alertActions';
 
+import RegisterAdminPage from './components/RegisterAdminPage';
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import Heading from './components/Heading';
@@ -49,6 +50,7 @@ const App = (props) => {
       <Router history={history}>
         <Route path="/login" component={LoginPage} />
         <PrivateRoute exact path="/" component={HomePage} />
+        <PrivateRoute exact path="/newAdmin" component={RegisterAdminPage} />
       </Router>
     </>
   );

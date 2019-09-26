@@ -27,7 +27,7 @@ const LoginPage = (props) => {
               icon="user"
               iconPosition="left"
               placeholder="E-mail address"
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Form.Input
               fluid
