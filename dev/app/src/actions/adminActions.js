@@ -1,7 +1,7 @@
 import { adminConstants } from '../actionTypes';
-import { adminService } from '../services';
+import { adminService } from '../services/adminServices';
 import { alertActions } from './alertActions';
-import { history } from '../helpers';
+import { history } from '../helpers/history';
 
 /**
  * When admin request to login
@@ -15,12 +15,13 @@ const login = (email, password) => {
 
     adminService.login(email, password)
       .then(() => {
-        // dispatch({ type: adminConstants.LOGIN_SUCCESS, data });
+        dispatch(alertActions.success("Welcome to iHeroes Sr."));
         history.push('/');
       })
       .catch(err => {
-        dispatch({ type: adminConstants.LOGIN_FAILURE, err});
-        dispatch(alertActions.error(err));
+        const { data } = err.response;
+        const defaultMsg = 'Ops... We had some error on our servers, please try again later';
+        dispatch(alertActions.error(data ? data.errors : defaultMsg));
       });
   }
 }
@@ -33,7 +34,7 @@ const logout = () => {
   return { type: adminConstants.LOGOUT };
 }
 
-export const userActions = {
+export const adminActions = {
   login,
   logout,
 };

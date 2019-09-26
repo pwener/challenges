@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Grid, Image, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-import { alertActions } from '../actions/alertActions';
+import { adminActions } from '../actions/adminActions';
 
 const LoginForm = (props) => {
-  const { successAlert } = props;
+  const { login } = props;
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -13,15 +16,22 @@ const LoginForm = (props) => {
         <Image src='logo.png' size="medium" centered/>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+            <Form.Input
+              fluid
+              icon='user'
+              iconPosition='left'
+              placeholder='E-mail address'
+              onChange={e => setEmail(e.target.value)}
+            />
             <Form.Input
               fluid
               icon='lock'
               iconPosition='left'
               placeholder='Password'
               type='password'
+              onChange={e => setPassword(e.target.value)}
             />
-            <Button color='teal' fluid size='large' onClick={() => successAlert('Hello')}>
+            <Button color='teal' fluid size='large' onClick={() => login(email, password)}>
               Admin Login
             </Button>
           </Segment>
@@ -32,7 +42,7 @@ const LoginForm = (props) => {
 }
 
 const actionCreators = {
-  successAlert: alertActions.success,
+  login: adminActions.login,
 };
 
 export default connect(null, actionCreators)(LoginForm);
