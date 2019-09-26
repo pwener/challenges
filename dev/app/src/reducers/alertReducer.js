@@ -1,20 +1,22 @@
 import { alertConstants } from '../actionTypes';
 
-export const alert = (state = null, action) => {
+const alert = (state = null, action) => {
   switch (action.type) {
     case alertConstants.SUCCESS:
       return {
         color: 'blue',
-        message: action.message
+        message: action.message,
       };
     case alertConstants.ERROR:
       return {
         color: 'red',
-        message: action.message
+        message: action.message,
       };
     case alertConstants.CLEAR:
       return null;
     default:
-      return state
+      return state;
   }
-}
+};
+
+export default alert;

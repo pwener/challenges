@@ -25,7 +25,11 @@
       }
     ]
   },
-  "globals": { "window": "readable", "document": "readable"},
+  "globals": {
+    "window": "readable",
+    "document": "readable",
+    "localStorage": "readable"
+  },
   "env": {
     "jest": true
   }

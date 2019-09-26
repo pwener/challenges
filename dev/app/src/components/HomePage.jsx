@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Card,
   Container,
-} from "semantic-ui-react";
+} from 'semantic-ui-react';
 import ThreatCard from './ThreatCard';
 
-const generateLoc = () => "lat: -5.836597, lng: -35.236007"
+const generateLoc = () => 'lat: -5.836597, lng: -35.236007';
 
 const monsters = [
   { location: generateLoc(), dangerLevel: 'S', monsterName: 'Silver Dragon' },
@@ -15,10 +15,10 @@ const monsters = [
   { location: generateLoc(), dangerLevel: 'G', monsterName: 'Zombies' },
 ];
 
-const HomePage = (props) => (
+const HomePage = () => (
   <Container textAlign="center">
     <Card.Group centered>
-      { monsters.map((m, i) => <ThreatCard threat={m} /> ) }
+      { monsters.map((m) => <ThreatCard threat={m} /> ) }
     </Card.Group>
   </Container>
 );

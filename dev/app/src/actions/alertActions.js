@@ -14,8 +14,10 @@ const clear = () => ({
   type: alertConstants.CLEAR,
 });
 
-export const alertActions = {
+const alertActions = {
   success,
   error,
-  clear
+  clear,
 };
+
+export default alertActions;

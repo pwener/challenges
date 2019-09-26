@@ -5,9 +5,9 @@ const ThreatCard = ({ threat }) => (
   <Card>
     <Card.Content>
       <Image
-        floated='right'
-        size='mini'
-        src='/images/avatar/large/steve.jpg'
+        floated="right"
+        size="mini"
+        src="/images/avatar/large/steve.jpg"
       />
       <Card.Header>{threat.monsterName}</Card.Header>
       <Card.Meta>{threat.location}</Card.Meta>
@@ -15,6 +15,6 @@ const ThreatCard = ({ threat }) => (
       </Card.Description>
     </Card.Content>
   </Card>
-)
+);
 
 export default ThreatCard;

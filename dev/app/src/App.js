@@ -1,27 +1,34 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Router, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Router } from 'react-router-dom';
 import { Message, Container } from 'semantic-ui-react';
 
-import { history } from './helpers/history';
-import { alertActions } from './actions/alertActions';
+import history from './helpers/history';
+import alertActions from './actions/alertActions';
 
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import Heading from './components/Heading';
 
-const isLogged = () => !!localStorage.getItem('admin')
+const isLogged = () => {
+  const admin = localStorage.getItem('admin');
+  return admin && admin.length > 0;
+};
 
+/**
+ * Should be used inside App to control render of private routes
+ */
 const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
-      isLogged() ? (
-        <>
-          <Component {...props} />
-        </>
-      ) : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-    )} />
-)
+  <Route
+    {...rest}
+    render={(props) => (
+      isLogged() ? (<Component {...props} />)
+        : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+    )}
+  />
+);
 
 const App = (props) => {
   const { alert, clearAlerts } = props;
@@ -30,7 +37,7 @@ const App = (props) => {
     <>
       { isLogged() ? <Heading /> : null }
       { alert ? (
-        <Container textAlign="center" style={{ marginBottom: '2vh'}}>
+        <Container textAlign="center" style={{ marginBottom: '2vh' }}>
           <Message
             color={alert.color}
             onDismiss={() => clearAlerts()}
@@ -45,15 +52,15 @@ const App = (props) => {
       </Router>
     </>
   );
-}
+};
 
 const mapState = (state) => ({
   alert: state.alert,
-})
+});
 
 const actionCreators = {
-  clearAlerts: alertActions.clear
+  clearAlerts: alertActions.clear,
 };
 
 
-export default connect(mapState, actionCreators)(App);;
+export default connect(mapState, actionCreators)(App);
