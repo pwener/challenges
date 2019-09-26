@@ -16,11 +16,19 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 const App = (props) => {
-  const { alert } = props;
+  const { alert, clearAlerts } = props;
 
   return (
     <>
-      {alert ? <Message color={alert.color}>{alert.message}</Message> : null }
+      {alert ? (
+        <Message
+          color={alert.color}
+          style={{ textAlign: 'center' }}
+          onDismiss={() => clearAlerts()}
+        >
+            {alert.message}
+        </Message>
+      ): null }
       <Router history={history}>
         <LoginForm />
       </Router>
