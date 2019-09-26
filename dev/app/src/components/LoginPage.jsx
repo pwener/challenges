@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { adminActions } from '../actions/adminActions';
 
-const LoginForm = (props) => {
+const LoginPage = (props) => {
   const { login } = props;
 
   const [email, setEmail] = useState('');
@@ -45,4 +45,4 @@ const actionCreators = {
   login: adminActions.login,
 };
 
-export default connect(null, actionCreators)(LoginForm);
+export default connect(null, actionCreators)(LoginPage);

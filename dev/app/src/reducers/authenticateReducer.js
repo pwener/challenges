@@ -1,7 +1,7 @@
 import { adminConstants } from '../actionTypes';
 
-let token = localStorage.getItem('auth_token');
-const initialState = token ? { loggedIn: true, token } : {};
+let admin = JSON.parse(localStorage.getItem('admin'));
+const initialState = admin ? { loggedIn: true, auth_token: admin.auth_token } : {};
 
 export const authentication = (state = initialState, action) => {
   switch (action.type) {

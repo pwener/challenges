@@ -1,17 +1,25 @@
 import React from 'react';
-import LoginForm from './components/LoginForm';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Message } from 'semantic-ui-react';
 import { Router } from 'react-router-dom';
+import { Message, Container } from 'semantic-ui-react';
+
 import { history } from './helpers/history';
 import { alertActions } from './actions/alertActions';
 
+import LoginPage from './components/LoginPage';
+import HomePage from './components/HomePage';
+import Heading from './components/Heading';
+
+const isLogged = () => !!localStorage.getItem('admin')
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-        localStorage.getItem('user')
-            ? <Component {...props} />
-            : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+      isLogged() ? (
+        <>
+          <Component {...props} />
+        </>
+      ) : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
     )} />
 )
 
@@ -20,26 +28,28 @@ const App = (props) => {
 
   return (
     <>
-      {alert ? (
-        <Message
-          color={alert.color}
-          style={{ textAlign: 'center' }}
-          onDismiss={() => clearAlerts()}
-        >
+      { isLogged() ? <Heading /> : null }
+      { alert ? (
+        <Container textAlign="center" style={{ marginBottom: '2vh'}}>
+          <Message
+            color={alert.color}
+            onDismiss={() => clearAlerts()}
+          >
             {alert.message}
-        </Message>
-      ): null }
+          </Message>
+        </Container>
+      ) : null }
       <Router history={history}>
-        <LoginForm />
+        <Route path="/login" component={LoginPage} />
+        <PrivateRoute exact path="/" component={HomePage} />
       </Router>
     </>
   );
 }
 
-const mapState = (state) => {
-  const { alert } = state;
-  return { alert };
-}
+const mapState = (state) => ({
+  alert: state.alert,
+})
 
 const actionCreators = {
   clearAlerts: alertActions.clear

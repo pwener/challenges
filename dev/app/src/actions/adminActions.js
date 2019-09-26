@@ -30,8 +30,12 @@ const login = (email, password) => {
  * Destroy admin session
  */
 const logout = () => {
-  adminService.logout();
-  return { type: adminConstants.LOGOUT };
+  return dispatch => {
+    adminService.logout();
+    history.push('/login');
+    dispatch(alertActions.clear());
+    dispatch({ type: adminConstants.LOGOUT });
+  }
 }
 
 export const adminActions = {
