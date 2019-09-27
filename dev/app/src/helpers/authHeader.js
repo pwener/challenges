@@ -1,13 +1,12 @@
 const authHeader = () => {
-  const header = localStorage.getItem('auth_token');
+  const admin = localStorage.getItem('admin');
 
-  if (header && header.length > 0) {
-    return { Authorization: header.token };
+  if (admin && admin.length > 0) {
+    const token = JSON.parse(admin).auth_token;
+    return { Authorization: token };
   }
 
   return {};
 };
 
-export default {
-  authHeader,
-};
+export default authHeader;

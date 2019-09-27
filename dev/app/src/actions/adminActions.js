@@ -1,5 +1,5 @@
 import { adminConstants } from '../actionTypes';
-import { adminService } from '../services/adminServices';
+import adminService from '../services/adminServices';
 import alertActions from './alertActions';
 import history from '../helpers/history';
 
@@ -34,9 +34,30 @@ const logout = () => (dispatch) => {
   dispatch({ type: adminConstants.LOGOUT });
 };
 
+const register = (admin) => (dispatch) => {
+  adminService.register(admin)
+    .then(() => {
+      dispatch({ type: adminConstants.REGISTER_SUCCESS });
+      dispatch(alertActions.success('Admin registered with success'));
+    })
+    .catch((err) => {
+      const { data } = err.response;
+      // backend validations
+      if (err.response.status === 422) {
+        dispatch({
+          type: adminConstants.REGISTER_FAIL,
+          errors: data.errors,
+        });
+      } else {
+        dispatch(alertActions.error(data.errors));
+      }
+    });
+};
+
 const adminActions = {
   login,
   logout,
+  register,
 };
 
 export default adminActions;
