@@ -24,6 +24,7 @@ RSpec.describe AdminsController, type: :controller do
         @admin_attr = FactoryBot.attributes_for :admin
         api_authorization_header logged.auth_token
         post :create, params: { admin: @admin_attr }, format: :json
+        puts request.params
       end
 
       it "renders the json of admin" do

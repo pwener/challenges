@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  # just for test
+  devise_for :admins, only: [:sign_in]
+
   # Api definition
   resources :admins, only: [:show, :create, :update, :destroy]
 
