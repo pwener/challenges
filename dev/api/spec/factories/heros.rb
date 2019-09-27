@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :hero do
-    name { "MyString" }
+    name { "Saitama" }
     rank { 1 }
     location { nil }
   end
