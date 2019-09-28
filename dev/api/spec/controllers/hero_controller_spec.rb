@@ -23,11 +23,6 @@ RSpec.describe HeroController, type: :controller do
     context 'when is successfully created' do
       before(:each) do
         hero = FactoryBot.attributes_for(:hero)
-                         .except(:location)
-                         .merge(location_attributes: {
-                                  longitude: 10, latitude: 10
-                                })
-
         post :create, params: { hero: hero }, format: :json
       end
 
@@ -36,6 +31,21 @@ RSpec.describe HeroController, type: :controller do
       end
 
       it { expect(response).to have_http_status(201) }
+    end
+
+    context 'when have wrong data' do
+      before(:each) do
+        hero = FactoryBot.attributes_for(:hero)
+        hero[:name] = 'X' # wrong name
+        post :create, params: { hero: hero }, format: :json
+      end
+
+      it 'render errors json' do
+        error = 'is too short (minimum is 2 characters)'
+        expect(object_response[:errors][:name]).to include error
+      end
+
+      it { expect(response).to have_http_status(422) }
     end
   end
 
