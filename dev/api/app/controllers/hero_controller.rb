@@ -4,7 +4,7 @@ class HeroController < ApplicationController
   # GET /heroes
   def index
     heroes = Hero.all
-    render json: heroes, status: :ok
+    render json: heroes, include: :location, status: :ok
   end
 
   # GET /heroes/:id
