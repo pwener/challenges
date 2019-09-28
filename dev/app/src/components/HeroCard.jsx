@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
+import Location from './Location';
 
 /**
  * To style card
@@ -24,8 +25,7 @@ const HeroCard = ({ hero }) => (
         <span className={`ui ${colorByRank(hero.rank)} small header`}>{hero.rank.toUpperCase()}</span>
       </Card.Meta>
       <Card.Description>
-        <Icon name="globe" />
-        { hero.location ? `(${hero.location.latitude}, ${hero.location.longitude})` : '404' }
+        <Location location={hero.location} />
       </Card.Description>
     </Card.Content>
   </Card>
