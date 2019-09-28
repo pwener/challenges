@@ -1,9 +1,11 @@
+require 'batle_pool'
+
 class ThreatsController < ApplicationController
 
   # GET /threats
   def index
-    threats = Threat.all
-    render json: threats, include: :location, status: :ok
+    threats = BatlePool.instance.all
+    render json: threats, status: :ok
   end
 
   # POST /threats
@@ -11,6 +13,7 @@ class ThreatsController < ApplicationController
     threat = Threat.new(threat_params)
 
     if threat.save
+      BatlePool.instance.release threat
       render json: threat,
              except: :location_id,
              include: :location,
