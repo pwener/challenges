@@ -7,6 +7,7 @@ import {
 import { connect } from 'react-redux';
 import heroActions from '../actions/heroActions';
 import HeroCard from './HeroCard';
+import HeroeForm from './HeroeForm';
 
 const ROW_SIZE = 5;
 
@@ -42,7 +43,16 @@ const HeroListPage = ({ heroes, loadHeroes }) => {
 
   return (
     <Container textAlign="center" style={{ marginBottom: '2vh' }}>
-      <Header as="h1">All Heroes</Header>
+      <Grid columns={2}>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h1" floated="left">All Heroes</Header>
+          </Grid.Column>
+          <Grid.Column textAlign="right">
+            <HeroeForm />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
       <Grid columns={ROW_SIZE}>
         { cards.map((r) => <Grid.Row>{ r }</Grid.Row>) }
       </Grid>
