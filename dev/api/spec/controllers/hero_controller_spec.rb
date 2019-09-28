@@ -6,6 +6,19 @@ RSpec.describe HeroController, type: :controller do
     api_authorization_header logged.auth_token
   end
 
+  describe 'GET #index' do
+    before(:each) do
+      @hero = FactoryBot.create :hero
+      get :index, format: :json
+    end
+
+    it 'returns the list with hero' do
+      expect(object_response.size).to eql 1
+    end
+
+    it { expect(response).to have_http_status(200) }
+  end
+
   describe 'GET #show' do
     before(:each) do
       @hero = FactoryBot.create :hero
