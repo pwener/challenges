@@ -2,7 +2,10 @@ class HeroController < ApplicationController
   before_action :authorize!
 
   # GET /heroes/:id
-  def show; end
+  def show
+    hero = Hero.find(params[:id])
+    render json: hero, except: :location_id, status: :ok
+  end
 
   # POST /heroes
   def create

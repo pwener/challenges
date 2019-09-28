@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :hero do
     name { "Saitama" }
     rank { "s" }
-    location { nil }
+    location { FactoryBot.create :location }
   end
 end

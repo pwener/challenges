@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # Api definition
   resources :admins, only: [:show, :create, :update, :destroy]
-  resources :heroes, only: [:create], controller: :hero
+  resources :heroes, controller: :hero
 
   post     '/login', to: 'sessions#create'
   delete   '/logout', to: 'sessions#destroy'
