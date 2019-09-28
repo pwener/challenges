@@ -1,16 +1,11 @@
 import { adminConstants } from '../actionTypes';
+import { readAPIError } from '../helpers/error';
 
 const admin = (state = {}, action) => {
   switch (action.type) {
     case adminConstants.REGISTER_FAIL: {
-      const errors = [];
-
-      Object.keys(action.errors).forEach((k) => {
-        action.errors[k].forEach((msg) => errors.push(`${k}: ${msg}`));
-      });
-
       return {
-        errors,
+        errors: readAPIError(action.errors),
       };
     }
     case adminConstants.REGISTER_SUCCESS:

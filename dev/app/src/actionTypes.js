@@ -14,4 +14,6 @@ export const adminConstants = {
 
 export const heroConstants = {
   FETCH_HEROES: 'fetch-heroes',
+  ADD_HERO: 'add-hero',
+  ADD_HERO_FAIL: 'add-hero-fail',
 };
