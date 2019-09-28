@@ -1,11 +1,9 @@
-class CreateHeros < ActiveRecord::Migration[5.2]
+class CreateHeroes < ActiveRecord::Migration[5.2]
   def change
     create_table :heros do |t|
       t.string :name
       t.integer :rank
-      t.integer :location_id
-
-      t.timestamps
+      t.references :location, foreign_key: true
     end
   end
 end

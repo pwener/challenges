@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_032627) do
+ActiveRecord::Schema.define(version: 2019_09_27_141121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,15 +34,16 @@ ActiveRecord::Schema.define(version: 2019_09_27_032627) do
     t.string "name"
     t.integer "rank"
     t.bigint "location_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_heros_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
     t.decimal "latitude", precision: 5, scale: 2
     t.decimal "longitude", precision: 5, scale: 2
+    t.bigint "hero_id"
+    t.index ["hero_id"], name: "index_locations_on_hero_id"
   end
 
   add_foreign_key "heros", "locations"
+  add_foreign_key "locations", "heros"
 end
