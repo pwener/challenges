@@ -1,0 +1,40 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js install
+
+PATH: 
+  /home/pwener/.rvm/gems/ruby-2.5.1/bin:/home/pwener/.rvm/gems/ruby-2.5.1@global/bin:/home/pwener/.rvm/rubies/ruby-2.5.1/bin:/home/pwener/bin:/home/pwener/.local/bin:/home/pwener/fabric-samples/bin:/home/pwener/.rvm/gems/ruby-2.5.1/bin:/home/pwener/.rvm/gems/ruby-2.5.1@global/bin:/home/pwener/.rvm/rubies/ruby-2.5.1/bin:/home/pwener/bin:/home/pwener/.local/bin:/home/pwener/.rvm/gems/ruby-2.5.1/bin:/home/pwener/.rvm/gems/ruby-2.5.1@global/bin:/home/pwener/.rvm/rubies/ruby-2.5.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/bin:/home/pwener/Workspace/golang/bin:/usr/local/go/bin:/home/pwener/Android/Sdk/tools:/home/pwener/Android/Sdk/platform-tools:/home/pwener/.rvm/bin
+
+Yarn version: 
+  1.12.3
+
+Node version: 
+  8.10.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/pwener/Workspace/challenges/dev/listener/package.json: Unexpected token } in JSON at position 143
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1631:59
+      at Generator.next (<anonymous>)
+      at step (/usr/share/yarn/lib/cli.js:304:30)
+      at /usr/share/yarn/lib/cli.js:315:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "hero-listener",
+    "version": "0.0.0",
+    "private": true,
+    "dependencies": {
+      "socket.io": "^2.2.0",
+      "axios": "^0.19.0",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
