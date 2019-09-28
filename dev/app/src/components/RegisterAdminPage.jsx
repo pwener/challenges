@@ -20,8 +20,8 @@ const RegisterAdminPage = ({ adminStore, register }) => {
   return (
     <Grid textAlign="center" style={{ height: '50vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center">
-          Add new administrator
+        <Header as="h1" textAlign="center">
+          Add administrator
         </Header>
         { errors && errors.length > 0 ? (
           <Message
@@ -61,7 +61,7 @@ const RegisterAdminPage = ({ adminStore, register }) => {
               type="password"
               onChange={(e) => setAdmin({ ...admin, password_confirmation: e.target.value })}
             />
-            <Button color="teal" fluid size="large" onClick={() => register(admin)}>
+            <Button color="blue" fluid size="large" onClick={() => register(admin)}>
               Register Admin
             </Button>
           </Segment>

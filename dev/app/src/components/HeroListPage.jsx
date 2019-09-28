@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Grid,
+  Header,
   Container,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -41,6 +42,7 @@ const HeroListPage = ({ heroes, loadHeroes }) => {
 
   return (
     <Container textAlign="center" style={{ marginBottom: '2vh' }}>
+      <Header as="h1">All Heroes</Header>
       <Grid columns={ROW_SIZE}>
         { cards.map((r) => <Grid.Row>{ r }</Grid.Row>) }
       </Grid>

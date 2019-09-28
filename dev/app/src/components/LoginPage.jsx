@@ -37,8 +37,8 @@ const LoginPage = (props) => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button color="teal" fluid size="large" onClick={() => login(email, password)}>
-              Admin Login
+            <Button color="blue" fluid size="large" onClick={() => login(email, password)}>
+              Login
             </Button>
           </Segment>
         </Form>
