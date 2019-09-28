@@ -12,6 +12,7 @@ import RegisterAdminPage from './components/RegisterAdminPage';
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import Heading from './components/Heading';
+import HeroListPage from './components/HeroListPage';
 
 const isLogged = () => {
   const admin = localStorage.getItem('admin');
@@ -51,6 +52,7 @@ const App = (props) => {
         <Route path="/login" component={LoginPage} />
         <PrivateRoute exact path="/" component={HomePage} />
         <PrivateRoute exact path="/newAdmin" component={RegisterAdminPage} />
+        <PrivateRoute exact path="/heroes" component={HeroListPage} />
       </Router>
     </>
   );
