@@ -11,3 +11,7 @@ export const adminConstants = {
   REGISTER_FAIL: 'register-fail',
   REGISTER_SUCCESS: 'register-success',
 };
+
+export const heroConstants = {
+  FETCH_HEROES: 'fetch-heroes',
+};

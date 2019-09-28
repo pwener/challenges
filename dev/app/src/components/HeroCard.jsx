@@ -25,7 +25,7 @@ const HeroCard = ({ hero }) => (
       </Card.Meta>
       <Card.Description>
         <Icon name="globe" />
-        { `(${hero.location.latitude}, ${hero.location.longitude})` }
+        { hero.location ? `(${hero.location.latitude}, ${hero.location.longitude})` : '404' }
       </Card.Description>
     </Card.Content>
   </Card>

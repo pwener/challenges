@@ -1,15 +1,12 @@
-import axios from 'axios';
-import authHeader from '../helpers/authHeader';
+import axios from '../helpers/axios';
 
-const url = 'http://localhost:3000';
-
-const login = (email, password) => axios.post(`${url}/login`, { email, password })
+const login = (email, password) => axios.post('/login', { email, password })
   .then((res) => {
     const admin = res.data;
     localStorage.setItem('admin', JSON.stringify(admin));
   });
 
-const register = (admin) => axios.post(`${url}/admins`, { admin }, { headers: authHeader() });
+const register = (admin) => axios.post('/admins', { admin });
 
 const logout = () => {
   // remove user from local storage to log user out
