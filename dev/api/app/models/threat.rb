@@ -5,4 +5,9 @@ class Threat < ApplicationRecord
   validates :name, uniqueness: true, length: { in: 2..40 }
   validates :rank, presence: true
   validates :location, presence: true
+
+  # override method
+  def as_json(options={})
+    { name: name, rank: rank, location: location }
+  end
 end

@@ -4,8 +4,8 @@ class ThreatsController < ApplicationController
 
   # GET /threats
   def index
-    threats = BatlePool.instance.all
-    render json: threats,
+    batles = BatlePool.instance.all
+    render json: batles,
            except: :location_id,
            include: [:heroes, :threat],
            status: :ok
@@ -17,6 +17,7 @@ class ThreatsController < ApplicationController
 
     if threat.save
       BatlePool.instance.release threat
+
       render json: threat,
              except: :location_id,
              include: :location,
