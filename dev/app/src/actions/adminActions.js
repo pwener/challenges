@@ -16,6 +16,7 @@ const login = (email, password) => (dispatch) => {
     .then(() => {
       dispatch(alertActions.success('Welcome to iHeroes Sr.'));
       history.push('/');
+      window.location.reload();
     })
     .catch((err) => {
       const { data } = err.response;

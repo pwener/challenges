@@ -1,6 +1,7 @@
 import { adminConstants } from '../actionTypes';
 
-const admin = JSON.parse(localStorage.getItem('admin'));
+const strAdm = localStorage.getItem('admin');
+const admin = strAdm && strAdm.length > 0 ? JSON.parse(strAdm) : null;
 const initialState = admin ? { loggedIn: true, auth_token: admin.auth_token } : {};
 
 const authentication = (state = initialState, action) => {
