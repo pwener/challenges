@@ -20,8 +20,8 @@ class BatlePool
           b.save
         end
         puts "Have #{@batles.size} batles"
-        # waits 10 seconds
-        sleep(60)
+        # waits 5 min
+        sleep(60 * 5)
       end
     end
   end
@@ -39,7 +39,7 @@ class BatlePool
       Thread.new do
         Rails.application.executor.wrap do
           # waits 10 seconds
-          sleep(10)
+          sleep(30)
           release(threat)
         end
       end
