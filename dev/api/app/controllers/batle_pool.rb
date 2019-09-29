@@ -21,13 +21,13 @@ class BatlePool
         end
         puts "Have #{@batles.size} batles"
         # waits 10 seconds
-        sleep(10)
+        sleep(60)
       end
     end
   end
 
   # Should find a hero to fight against
-  # threat and append that in the batles
+  # threat. Append that one in the batles
   def release(threat)
     hero = Hero.find_to_batle(threat.rank)
     if hero
@@ -35,10 +35,13 @@ class BatlePool
       batle = Batle.create(threat: threat, heroes: [hero])
       @batles.append(batle)
     else
-      loop do
-        release(threat)
-        # waits 5 seconds
-        sleep(5)
+      # run release again in a thread mode
+      Thread.new do
+        Rails.application.executor.wrap do
+          # waits 10 seconds
+          sleep(10)
+          release(threat)
+        end
       end
     end
   end
