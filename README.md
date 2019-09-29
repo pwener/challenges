@@ -6,35 +6,35 @@ No processo de modelagem foi obtido o seguinte diagrama de classes: ![uml](https
 
 ## Como executar solução?
 
-Na pasta do app execute:
+Na pasta do app execute nessa sequência:
 
 `docker-compose build`
 
-Em seguida:
+`docker-compose run web rails db:reset`
 
 `docker-compose up`
 
-Agora na pasta do app:
+Agora na pasta do app, em outra terminal:
 
-`npm run install`
+`yarn install`
 
-Em seguida:
+`yarn start`
 
-`npm run start`
+Por último, na pasta do listener, em outro terminal:
 
-Por último, na pasta do listener:
-
-`npm run install`
-
-Em seguida:
+`yarn install`
 
 `node app.js`
+
+O admin inicial tem as credenciais adm@adm.com e senha: admin123
 
 ## Testes
 
 Basicamente, por uma questão de tempo, apenas foi implementado testes na API, uma vez que considero a parte mais crítica da aplicação. Para executar os testes:
 
 `docker-compose run web rspec`
+
+A cobertura dos testes deve aparecer na saída do comando. 
 
 ## Considerações sobre a solução
 
