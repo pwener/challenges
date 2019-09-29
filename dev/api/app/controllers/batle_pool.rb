@@ -14,15 +14,16 @@ class BatlePool
       loop do
         @batles.each do |b|
           won = [true, false].sample
+          b.successful = won
+          b.finished = true
+          b.save
+
           if won
             @batles.delete(b)
           else
             # New batle to new hero!
             release b.threat
           end
-          b.successful = won
-          b.finished = true
-          b.save
         end
         puts "Have #{@batles.size} batles"
         # waits 5 min
