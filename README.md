@@ -2,7 +2,9 @@
 
 Os requisitos do projeto e seus critérios de aceitação foram mantidos nesse kanban: https://trello.com/b/IcU4i13w/iheros
 
-No processo de modelagem foi obtido o seguinte diagrama de classes: ![](https://yuml.me/pwener/ihero.png)
+No processo de modelagem foi obtido o seguinte diagrama de classes:
+
+![uml](https://yuml.me/pwener/ihero.png)
 
 ## Como executar solução?
 
