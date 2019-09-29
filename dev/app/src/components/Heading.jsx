@@ -9,9 +9,10 @@ import adminActions from '../actions/adminActions';
 import history from '../helpers/history';
 
 const paths = [
-  { path: '/', name: 'Battles' },
+  { path: '/', name: 'Current battles' },
   { path: '/heroes', name: 'Heroes' },
   { path: '/newAdmin', name: 'Admin' },
+  { path: '/allBatles', name: 'All Batles' },
 ];
 
 const Heading = ({ logout }) => {

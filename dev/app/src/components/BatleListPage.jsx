@@ -24,7 +24,7 @@ const convertToMatriz = (arr, order) => {
   return res;
 };
 
-const HomePage = ({ batles, loadBatles }) => {
+const BatleListPage = ({ batles, loadBatles }) => {
 
   useEffect(() => {
     loadBatles();
@@ -36,7 +36,7 @@ const HomePage = ({ batles, loadBatles }) => {
     if (batles) {
       const listed = batles.map((b) => (
         <Grid.Column>
-          <BatleCard batle={b} />
+          <BatleCard batle={b} detailed />
         </Grid.Column>
       ));
       const rowCol = convertToMatriz(listed, ROW_SIZE);
@@ -50,7 +50,7 @@ const HomePage = ({ batles, loadBatles }) => {
       <Grid>
         <Grid.Row>
           <Grid.Column>
-            <Header as="h1" floated="left">Battles right now</Header>
+            <Header as="h1" floated="left">All battles</Header>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -70,7 +70,7 @@ const mapState = (state) => ({
 });
 
 const actionCreators = {
-  loadBatles: batleActions.fetchJustCurrent,
+  loadBatles: batleActions.fetch,
 };
 
-export default connect(mapState, actionCreators)(HomePage);
+export default connect(mapState, actionCreators)(BatleListPage);

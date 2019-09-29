@@ -16,7 +16,21 @@ const colorByRank = (rank) => {
   return colors[rank];
 };
 
-const HeroCard = ({ batle }) => (
+const Result = ({ successful, finished }) => {
+  if (!finished) {
+    return (
+      <Header as="h5">In progress...</Header>
+    );
+  }
+
+  return (
+    <Header as="h5" color={successful	? 'green' : 'red'}>
+      {successful ? 'Won' : 'Defeat'}
+    </Header>
+  );
+};
+
+const HeroCard = ({ batle, detailed }) => (
   <Card color={colorByRank(batle.threat.rank)}>
     <Card.Content>
       <Card.Header>{batle.threat.name}</Card.Header>
@@ -31,6 +45,7 @@ const HeroCard = ({ batle }) => (
           {`${batle.heroes[0].name} `}
           {`(rank ${batle.heroes[0].rank.toUpperCase()}) `}
         </Header>
+        { detailed ? <Result successful={batle.successful} finished={batle.finished} /> : null }
         <Location location={batle.threat.location} />
       </Card.Description>
     </Card.Content>
