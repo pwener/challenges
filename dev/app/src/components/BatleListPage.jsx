@@ -60,7 +60,7 @@ const BatleListPage = ({ batles, loadBatles }) => {
     </Container>
   ) : (
     <Container textAlign="center" style={{ marginTop: '10vh' }}>
-      <Header as="h1">No battle going on ...</Header>
+      <Header as="h1">No battles yet...</Header>
     </Container>
   );
 };
