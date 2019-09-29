@@ -1,26 +1,77 @@
-import React from 'react';
+/**
+ * List of all batles right now
+ */
+import React, { useEffect, useState } from 'react';
 import {
-  Card,
+  Grid,
+  Header,
   Container,
 } from 'semantic-ui-react';
-import ThreatCard from './ThreatCard';
+import { connect } from 'react-redux';
+import batleActions from '../actions/batleActions';
+import BatleCard from './BatleCard';
 
-const generateLoc = () => 'lat: -5.836597, lng: -35.236007';
+const ROW_SIZE = 4;
 
-const monsters = [
-  { location: generateLoc(), dangerLevel: 'S', monsterName: 'Silver Dragon' },
-  { location: generateLoc(), dangerLevel: 'G', monsterName: 'Black Dragon' },
-  { location: generateLoc(), dangerLevel: 'C', monsterName: 'Giant Mamba' },
-  { location: generateLoc(), dangerLevel: 'W', monsterName: 'Meteour' },
-  { location: generateLoc(), dangerLevel: 'G', monsterName: 'Zombies' },
-];
+/**
+ * Just to facilitate grid render
+ */
+const convertToMatriz = (arr, order) => {
+  const res = [];
+  for (let x = 0; x < arr.length; x += order) {
+    res.push(arr.slice(x, x + order));
+  }
+  return res;
+};
 
-const HomePage = () => (
-  <Container textAlign="center">
-    <Card.Group centered>
-      { monsters.map((m) => <ThreatCard threat={m} /> ) }
-    </Card.Group>
-  </Container>
-);
+const HomePage = ({ batles, loadBatles }) => {
 
-export default HomePage;
+  useEffect(() => {
+    loadBatles();
+    setInterval(loadBatles, 5000)
+  }, []);
+
+  const [cards, setBatles] = useState([]);
+
+  useEffect(() => {
+    if (batles) {
+      const listed = batles.map((b) => (
+        <Grid.Column>
+          <BatleCard batle={b} />
+        </Grid.Column>
+      ));
+      const rowCol = convertToMatriz(listed, ROW_SIZE);
+      setBatles(rowCol);
+    }
+  }, [batles]);
+
+
+  return batles.length > 0 ? (
+    <Container textAlign="center" style={{ marginBottom: '2vh' }}>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h1" floated="left">Batles right now</Header>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+      <Grid columns={ROW_SIZE}>
+        { cards.map((r) => <Grid.Row>{ r }</Grid.Row>) }
+      </Grid>
+    </Container>
+  ) : (
+    <Container textAlign="center" style={{ marginTop: '10vh' }}>
+      <Header as="h1">No battle going on ...</Header>
+    </Container>
+  );
+};
+
+const mapState = (state) => ({
+  batles: state.batle.batles,
+});
+
+const actionCreators = {
+  loadBatles: batleActions.fetch,
+};
+
+export default connect(mapState, actionCreators)(HomePage);

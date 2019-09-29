@@ -17,3 +17,7 @@ export const heroConstants = {
   ADD_HERO: 'add-hero',
   ADD_HERO_FAIL: 'add-hero-fail',
 };
+
+export const batleConstants = {
+  FETCH_BATLES: 'fetch-batle',
+};
