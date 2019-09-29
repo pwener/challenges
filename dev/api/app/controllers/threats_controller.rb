@@ -4,6 +4,12 @@ class ThreatsController < ApplicationController
 
   # GET /threats
   def index
+    render json: Batle.all, status: :ok
+  end
+
+  # Load current battles
+  # GET /battles
+  def current
     batles = BatlePool.instance.all
     render json: batles,
            except: :location_id,
