@@ -9,7 +9,7 @@ import adminActions from '../actions/adminActions';
 import history from '../helpers/history';
 
 const paths = [
-  { path: '/', name: 'Home' },
+  { path: '/', name: 'Batles' },
   { path: '/heroes', name: 'Heroes' },
   { path: '/newAdmin', name: 'Admin' },
 ];

@@ -51,7 +51,7 @@ const HomePage = ({ batles, loadBatles }) => {
       <Grid>
         <Grid.Row>
           <Grid.Column>
-            <Header as="h1" floated="left">Batles right now</Header>
+            <Header as="h1" floated="left">Battles right now</Header>
           </Grid.Column>
         </Grid.Row>
       </Grid>
