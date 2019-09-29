@@ -1,42 +1,70 @@
-# Challenges (under construction)
+# iHero
 
-Com o objetivo de se tornar um funcionário ZRP você precisa provar para o nosso timme, um grupo de profissionais extremamente competentes e habilidosos, que você será capaz de analisar, prever e desenvolver as tarefas que te forem designadas.
+Os requisitos do projeto e seus critérios de aceitação foram mantidos nesse kanban: https://trello.com/b/IcU4i13w/iheros
 
-Para cada um dos possíveis cargos que você for se candidatar haverá desafios dos mais diversos níveis, podendo estes serem _fáceis_, _normais_ ou _difíceis_. Você pode submeter o teste que achar que mais se encaixa com o seu perfil.
+No processo de modelagem foi obtido o seguinte diagrama de classes: ![](https://yuml.me/pwener/ihero.png)
 
-## Como submeter o seu projeto
+## Como executar solução?
 
-Cada área e cada projeto tem a sua própria regra quanto a submissão do desafio. Leia atentamente as regras e instruções antes de enviar seu projeto.
+Na pasta do app execute:
 
-> Dúvidas? Envie um email para [jobs@zrp.com.br](jobs@zrp.com.br).
+`docker-compose build`
 
-## Como o processo seletivo da ZRP funciona
+Em seguida:
 
-### Primeira Fase - Seleção
+`docker-compose up`
 
-Na primeira fase você será avaliado por um dos sócios da ZRP. O objetivo dessa avaliação é ver se você possui aderência à cultura da empresa. Nós prezamos por pessoas prestativas, pró-ativas, comunicativas e interessadas em aprender. Suas core skills serão os seus diferenciais aqui.
+Agora na pasta do app:
 
-### Segunda Fase - Desafio
+`npm run install`
 
-Se você passar na primeira fase você deverá escolher um desafio que você deseja enviar e nos dar uma previsão de quanto tempo você demorará para enviar aquele desafio.
-Não há tempo limite para a submissão, porém você será avaliado pela sua capacidade de prever seu tempo de entrega.
+Em seguida:
 
-Depois desse envio nosso time irá avaliar se:
+`npm run start`
 
-- Você teve uma boa previsão do tempo que você levaria para resolver o problema
-- Resolveu com precisão o problema apresentado
-- Cumpriu com os requisitos e critérios de avaliação daquele desafio
+Por último, na pasta do listener:
 
-### Terceira Fase - Feedback
+`npm run install`
 
-Para aqueles que submeteram o desafio da segunda fase haverá uma revisão do desafio pelo nosso time e te chamaremos para um breve call de feedback dizendo se você foi contratado ou não e o porque da decisão.
+Em seguida:
 
-### Escolha o seu caminho
+`node app.js`
 
-Para qual vaga você está se candidatando?
+## Testes
 
-- [Desenvolvedor](./dev)
-- [Designer](./design)
-- [PO](./po)
-- [QA](./qa)
-- [Comercial](./comercial)
+Basicamente, por uma questão de tempo, apenas foi implementado testes na API, uma vez que considero a parte mais crítica da aplicação. Para executar os testes:
+
+`docker-compose run web rspec`
+
+## Considerações sobre a solução
+
+- Cada vez que é alocado um heroi para combater a ameaça, é simulado uma batalha com tempo de 5 minutos.
+- A vitória é ramdomizada, caso o heroi perca, um novo heroi é alocado para a ameaça.
+
+## Arquitetura
+
+O sistema contempla 3 modulos, a api, um app e um listener.
+
+### API
+
+Utiliza Ruby on Rails, sendo responsável por manter os dados e processar a lógica dos combates. Ela recebe dados do listener e do app, e é consumida apenas pelo app.
+
+Na classe `app/controllers/batle_pool.rb` tem-se uma variação do pattern chamado Object pool, visando otimizar o processamento da listagem de batalhas atuais, uma vez que esses elementos são criados e requisitados em alta escala. Ainda nessa classe, é realizado o uso de _threads_ para fazer os processamento das batalhas.
+
+### APP
+
+Front-end utilizando o framework React.
+
+### Listener
+
+O socket a ser lido no problema utiliza a biblioteca para node e javascript chamada socket.io, que utiliza muitas camadas de implementação em cima de websockets, não permitindo uma comunicação convencional com outros sockets. Apesar de ser possível implementar o protocolo socket.io em outras linguagens, isso não é confiável e trivial. Portanto um script em node foi criado para se comunicar com o link(https://zrp-challenge-socket.herokuapp.com:80) do socket.io, publicando as ameaças vindas na api via http request.
+
+
+### TODO
+
+- Paginação das listas.
+- Seleção de heroi com base na localização.
+- Uso de múltiplos heróis para uma ameaça.
+- Integrar todos módulos da solução em um docker-compose ou script...
+
+Mais melhorias e evoluções nas issues do github.
