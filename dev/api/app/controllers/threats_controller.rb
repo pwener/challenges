@@ -5,7 +5,10 @@ class ThreatsController < ApplicationController
   # GET /threats
   def index
     threats = BatlePool.instance.all
-    render json: threats, status: :ok
+    render json: threats,
+           except: :location_id,
+           include: [:heroes, :threat],
+           status: :ok
   end
 
   # POST /threats
